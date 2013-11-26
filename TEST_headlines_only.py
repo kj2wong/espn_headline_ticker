@@ -8,7 +8,7 @@ import json
 import time
 
 #constants
-API_KEY = "" #insert API_KEY here
+API_KEY = "" #insert API_KEY here (will not work if there is no key)
 BASE_URL = "http://api.espn.com/v1/sports"
 
 URL_DICT = {"NFL" : "/football/nfl",
@@ -40,4 +40,5 @@ def print_headlines(league):
             i = 0
 
 #Start code
-print_headlines("NFL")
+if __name__ == '__main__':
+	print_headlines("NFL")
