@@ -56,11 +56,11 @@ E_PULSE = 0.00005
 E_DELAY = 0.00005
 
 # Main
-#	Will display starting message first
-#	Then, depending on which button is pressed, will print out something differenet
+#   Will display starting message first
+#   Then, depending on which button is pressed, will print out something differenet
 def main():
 
-	#Set up pins for GPIO output
+    #Set up pins for GPIO output
     GPIO.setmode(GPIO.BCM)  #Use BCM GPIO numbers
     GPIO.setup(LCD_E,GPIO.OUT)
     GPIO.setup(LCD_RS,GPIO.OUT)
@@ -69,48 +69,48 @@ def main():
     GPIO.setup(LCD_D6,GPIO.OUT)
     GPIO.setup(LCD_D7,GPIO.OUT)
 	
-	#Set up buttons for GPIO input
-	GPIO.setup(BTN1, GPIO.IN)
-	GPIO.setup(BTN2, GPIO.IN)
+    #Set up buttons for GPIO input
+    GPIO.setup(BTN1, GPIO.IN)
+    GPIO.setup(BTN2, GPIO.IN)
 
-	#Initialize LCD Display
+    #Initialize LCD Display
     lcd_init()
 	
-	#Display introductory message
-	to_write = [LCD_FILLER, str_format_left("Raspberry Pi"), str_format_left("GPIO Test"), LCD_FILLER]
-	lcd_write_lines(to_write)
-	time.sleep(5)
+    #Display introductory message
+    to_write = [LCD_FILLER, str_format_left("Raspberry Pi"), str_format_left("GPIO Test"), LCD_FILLER]
+    lcd_write_lines(to_write)
+    time.sleep(5)
 	
-	#run infinite loop that displays different messages for different button presses
-	while True:
-		if (GPIO.input(BTN1) == True):
-			to_write = [LCD_FILLER, str_format_left("You hit"), str_format_left("Button 1"), LCD_FILLER]
-			lcd_write_lines(to_write)
-			time.sleep(1)
-		if (GPIO.input(BTN2) == True):
-			to_write = [LCD_FILLER, str_format_left("You hit"), str_format_left("Button 2"), LCD_FILLER]
-			lcd_write_lines(to_write)
-			time.sleep(1)
+    #run infinite loop that displays different messages for different button presses
+    while True:
+        if (GPIO.input(BTN1) == True):
+            to_write = [LCD_FILLER, str_format_left("You hit"), str_format_left("Button 1"), LCD_FILLER]
+            lcd_write_lines(to_write)
+            time.sleep(1)
+	if (GPIO.input(BTN2) == True):
+            to_write = [LCD_FILLER, str_format_left("You hit"), str_format_left("Button 2"), LCD_FILLER]
+            lcd_write_lines(to_write)
+            time.sleep(1)
 
 #Function: str_format_left
-#	Taking in a string, will return it with enough padding for the LCD display
+#   Taking in a string, will return it with enough padding for the LCD display
 def str_format_left(s):
-	return s = s.ljust(LCD_WIDTH, " ")
+    return s = s.ljust(LCD_WIDTH, " ")
 	
 #Function: lcd_write_lines
-#	Takes in a list of 4 strings to be written out to each line in the LCD
+#   Takes in a list of 4 strings to be written out to each line in the LCD
 def lcd_write_lines(message):
-	lcd_byte(LCD_LINE_1,LCD_CMD)
-	lcd_string(message[0])
-	lcd_byte(LCD_LINE_2,LCD_CMD)
-	lcd_string(message[1])
-	lcd_byte(LCD_LINE_3,LCD_CMD)
-	lcd_string(message[2])
-	lcd_byte(LCD_LINE_4,LCD_CMD)
-	lcd_string(message[3])
+    lcd_byte(LCD_LINE_1,LCD_CMD)
+    lcd_string(message[0])
+    lcd_byte(LCD_LINE_2,LCD_CMD)
+    lcd_string(message[1])
+    lcd_byte(LCD_LINE_3,LCD_CMD)
+    lcd_string(message[2])
+    lcd_byte(LCD_LINE_4,LCD_CMD)
+    lcd_string(message[3])
 
 #Function: lcd_init()
-#	Initializes LCD display
+#   Initializes LCD display
 def lcd_init():
     #init display
     lcd_byte(0x33,LCD_CMD)
@@ -121,16 +121,16 @@ def lcd_init():
     lcd_byte(0x01,LCD_CMD)
 
 #Function: lcd_string
-#	Will print out to a set line in the LCD display
+#   Will print out to a set line in the LCD display
 def lcd_string(message):
     for i in range(LCD_WIDTH):
         lcd_byte(ord(message[i]),LCD_CHR)
 
 #Function: lcd_byte		
-#	Send byte to data pins
-# 		bits = data
-# 		mode = True for character
-#        	   False for command
+#   Send byte to data pins
+# 	bits = data
+# 	mode = True for character
+#      	       False for command
 def lcd_byte(bits,mode):
 
     GPIO.output(LCD_RS,mode)
