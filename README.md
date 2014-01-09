@@ -1,4 +1,4 @@
-espn_headline_ticker
+ESPN Headline Ticker
 ====================
 
 This application displays headlines from different sports leagues through the ESPN public API
